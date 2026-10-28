@@ -1,12 +1,12 @@
-import { userService } from '../services/user.service.js';
+const { userService } = require('../services/user.service.js');
 
-export const getAll = async (req, res) => {
+const getAll = async (req, res) => {
   const users = await userService.getAll();
 
   return res.json(users);
 };
 
-export const getById = async (req, res) => {
+const getById = async (req, res) => {
   const id = Number.parseInt(req.params.id);
 
   if (!id) {
@@ -22,7 +22,7 @@ export const getById = async (req, res) => {
   return res.status(200).json(user);
 };
 
-export const create = async (req, res) => {
+const create = async (req, res) => {
   const name = req.body.name;
 
   if (!name) {
@@ -34,7 +34,7 @@ export const create = async (req, res) => {
   return res.status(201).json(user);
 };
 
-export const update = async (req, res) => {
+const update = async (req, res) => {
   const id = Number.parseInt(req.params.id);
 
   if (!id) {
@@ -53,7 +53,7 @@ export const update = async (req, res) => {
   return res.json(updatedUser);
 };
 
-export const deleteOne = async (req, res) => {
+const deleteOne = async (req, res) => {
   const id = Number.parseInt(req.params.id);
 
   const deletedUser = await userService.deleteById(id);
@@ -65,10 +65,14 @@ export const deleteOne = async (req, res) => {
   return res.sendStatus(204);
 };
 
-export const userController = {
+const userController = {
   getAll,
   getById,
   create,
   update,
   deleteOne,
+};
+
+module.exports = {
+  userController,
 };

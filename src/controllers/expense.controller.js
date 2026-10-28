@@ -1,7 +1,7 @@
-import { expenseService } from '../services/expense.service.js';
-import { userService } from '../services/user.service.js';
+const { userService } = require('../services/user.service.js');
+const { expenseService } = require('../services/expense.service.js');
 
-export const getAll = async (req, res) => {
+const getAll = async (req, res) => {
   const { userId, categories, from, to } = req.query;
   const expenses = await expenseService.getAll({
     userId: +userId,
@@ -13,7 +13,7 @@ export const getAll = async (req, res) => {
   return res.json(expenses);
 };
 
-export const getById = async (req, res) => {
+const getById = async (req, res) => {
   const id = Number.parseInt(req.params.id);
 
   if (!id) {
@@ -29,7 +29,7 @@ export const getById = async (req, res) => {
   return res.status(200).json(expense);
 };
 
-export const create = async (req, res) => {
+const create = async (req, res) => {
   const { userId, spentAt, title, amount, category, note } = req.body;
   const data = {
     userId,
@@ -55,7 +55,7 @@ export const create = async (req, res) => {
   return res.status(201).json(expense);
 };
 
-export const update = async (req, res) => {
+const update = async (req, res) => {
   const id = Number.parseInt(req.params.id);
 
   if (!id) {
@@ -73,7 +73,7 @@ export const update = async (req, res) => {
   return res.json(updatedExpense);
 };
 
-export const deleteOne = async (req, res) => {
+const deleteOne = async (req, res) => {
   const id = Number.parseInt(req.params.id);
 
   const deletedExpense = await expenseService.deleteById(id);
@@ -85,10 +85,14 @@ export const deleteOne = async (req, res) => {
   return res.sendStatus(204);
 };
 
-export const expenseController = {
+const expenseController = {
   getAll,
   getById,
   create,
   update,
   deleteOne,
+};
+
+module.exports = {
+  expenseController,
 };

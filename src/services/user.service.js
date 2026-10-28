@@ -1,18 +1,18 @@
 const users = [];
 
-export function resetUsers() {
+function resetUsers() {
   users.length = 0;
 }
 
-export function getAll() {
+function getAll() {
   return users;
 }
 
-export function getById(id) {
+function getById(id) {
   return users.find((user) => user.id === id) ?? null;
 }
 
-export function create({ name }) {
+function create({ name }) {
   const id = users.length ? Math.max(...users.map((item) => item.id)) + 1 : 1;
   const user = { id, name };
 
@@ -21,7 +21,7 @@ export function create({ name }) {
   return user;
 }
 
-export function update({ id, name }) {
+function update({ id, name }) {
   const user = users.find((item) => item.id === id);
 
   if (!user) {
@@ -31,7 +31,7 @@ export function update({ id, name }) {
   return Object.assign(user, { name });
 }
 
-export function deleteById(id) {
+function deleteById(id) {
   const index = users.findIndex((item) => item.id === id);
 
   if (index === -1) {
@@ -43,10 +43,15 @@ export function deleteById(id) {
   return user;
 }
 
-export const userService = {
+const userService = {
   getAll,
   getById,
   create,
   update,
   deleteById,
+};
+
+module.exports = {
+  userService,
+  resetUsers,
 };

@@ -1,10 +1,10 @@
 const expenses = [];
 
-export function resetExpenses() {
+function resetExpenses() {
   expenses.length = 0;
 }
 
-export function getAll({ userId, categories, from, to }) {
+function getAll({ userId, categories, from, to }) {
   let expenseArray = [...expenses];
 
   if (userId) {
@@ -29,11 +29,11 @@ export function getAll({ userId, categories, from, to }) {
   return expenseArray;
 }
 
-export function getById(id) {
+function getById(id) {
   return expenses.find((expense) => expense.id === id) ?? null;
 }
 
-export function create(data) {
+function create(data) {
   const id = expenses.length
     ? Math.max(...expenses.map((item) => item.id)) + 1
     : 1;
@@ -44,7 +44,7 @@ export function create(data) {
   return expense;
 }
 
-export function update(id, data) {
+function update(id, data) {
   const expense = expenses.find((item) => item.id === id);
 
   if (!expense) {
@@ -54,7 +54,7 @@ export function update(id, data) {
   return Object.assign(expense, { ...data });
 }
 
-export function deleteById(id) {
+function deleteById(id) {
   const index = expenses.findIndex((item) => item.id === id);
 
   if (index === -1) {
@@ -66,10 +66,15 @@ export function deleteById(id) {
   return expense;
 }
 
-export const expenseService = {
+const expenseService = {
   getAll,
   getById,
   create,
   update,
   deleteById,
+};
+
+module.exports = {
+  expenseService,
+  resetExpenses,
 };
